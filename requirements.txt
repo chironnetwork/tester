@@ -1,0 +1,8 @@
+gunicorn
+itsdangerous
+Jinja2
+Werkzeug
+numpy==1.18.1
+Flask==1.1.1
+pandas==0.25.1
+scikit_learn==0.22.2.post1
