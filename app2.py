@@ -17,19 +17,16 @@ def data_split(data, ratio):
 @app.route('/', methods = ["GET","POST"])
 def check_result():
 
-    try:
-        inputFeatures = [
-            int(request.args.get('fever')),
-            int(request.args.get('age')),
-            int(request.args.get('tiredness')),
-            int(request.args.get('cough')),
-            int(request.args.get('feverDays')),
-        ]
-        print(inputFeatures)
-        infProb = clf.predict_proba([inputFeatures])[0][1]
-        return jsonify({'result':infProb*100})
-    except:
-        return jsonify({'result':0})
+    inputFeatures = [
+        int(request.args.get('fever')),
+        int(request.args.get('age')),
+        int(request.args.get('tiredness')),
+        int(request.args.get('cough')),
+        int(request.args.get('feverDays')),
+    ]
+    print(inputFeatures)
+    infProb = clf.predict_proba([inputFeatures])[0][1]
+    return jsonify({'result':infProb*100})
 
 
 if __name__ == '__main__':
