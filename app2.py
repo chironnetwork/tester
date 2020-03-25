@@ -27,6 +27,10 @@ Y_test = test[['infectionProb']].to_numpy().reshape(len(test),)
 clf = LogisticRegression()
 clf.fit(X_train, Y_train)
 
+@app.route('/web', methods = ["GET","POST"])
+def web():
+    return render_template('index.html')
+
 @app.route('/', methods = ["GET","POST"])
 def check_result():
 
@@ -45,8 +49,6 @@ def check_result():
 
     print
     # print(inputFeatures)
-
-
 
 if __name__ == '__main__':
 
