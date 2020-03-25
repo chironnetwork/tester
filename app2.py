@@ -28,18 +28,15 @@ def check_result():
     infProb = clf.predict_proba([inputFeatures])[0][1]
     return jsonify({'result':infProb*100})
 
+df = pd.read_csv('data1.csv')
+train, test = data_split(df, 0.3)
+X_train = train[['fever','age','tiredness','cough','feverDays']].to_numpy()
+X_test  = test[['fever','age','tiredness','cough','feverDays']].to_numpy()
 
-if __name__ == '__main__':
+Y_train = train[['infectionProb']].to_numpy().reshape(len(train),)
+Y_test = test[['infectionProb']].to_numpy().reshape(len(test),)
 
-    df = pd.read_csv('data1.csv')
-    train, test = data_split(df, 0.3)
-    X_train = train[['fever','age','tiredness','cough','feverDays']].to_numpy()
-    X_test  = test[['fever','age','tiredness','cough','feverDays']].to_numpy()
+clf = LogisticRegression()
+clf.fit(X_train, Y_train)
 
-    Y_train = train[['infectionProb']].to_numpy().reshape(len(train),)
-    Y_test = test[['infectionProb']].to_numpy().reshape(len(test),)
-
-    clf = LogisticRegression()
-    clf.fit(X_train, Y_train)
-
-    app.run()
+app.run()
