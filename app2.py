@@ -30,16 +30,22 @@ clf.fit(X_train, Y_train)
 @app.route('/', methods = ["GET","POST"])
 def check_result():
 
-    inputFeatures = [
-        int(request.args.get('fever')),
-        int(request.args.get('age')),
-        int(request.args.get('tiredness')),
-        int(request.args.get('cough')),
-        int(request.args.get('feverDays')),
-    ]
+    try:
+        inputFeatures = [
+            int(request.args.get('fever')),
+            int(request.args.get('age')),
+            int(request.args.get('tiredness')),
+            int(request.args.get('cough')),
+            int(request.args.get('feverDays')),
+        ]
+        infProb = clf.predict_proba([inputFeatures])[0][1]
+        return jsonify({'result':infProb*100})
+    except:
+        return jsonify({'result':'INVALID'})
+
+    print
     # print(inputFeatures)
-    infProb = clf.predict_proba([inputFeatures])[0][1]
-    return jsonify({'result':infProb*100})
+
 
 
 if __name__ == '__main__':
