@@ -13,7 +13,7 @@ def data_split(data, ratio):
 
 
 if __name__ == '__main__':
-    # Read the file
+
     df = pd.read_csv('data1.csv')
     train, test = data_split(df, 0.3)
     X_train = train[['fever','age','tiredness','cough','feverDays']].to_numpy()
@@ -26,9 +26,6 @@ if __name__ == '__main__':
     clf.fit(X_train, Y_train)
 
     file = open('model2.pkl','wb')
-
-
-    # dumb informaiton to that file
     pickle.dump(clf,file)
 
     file.close()
